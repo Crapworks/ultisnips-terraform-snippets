@@ -146,6 +146,7 @@ snippet blockstorage_volume_attach_v2
 resource "openstack_blockstorage_volume_attach_v2" "${1:name}" {
     host_name = ""
     volume_id = ""
+    data      = ""
 }
 endsnippet
 
@@ -170,7 +171,8 @@ endsnippet
 
 snippet networking_floatingip_v2
 resource "openstack_networking_floatingip_v2" "${1:name}" {
-    pool = ""
+    pool     = ""
+    fixed_ip = ""
 }
 endsnippet
 
@@ -212,6 +214,7 @@ resource "openstack_lb_pool_v2" "${1:name}" {
     lb_method      = ""
     admin_state_up = ""
     type           = ""
+    persistence    = ""
 }
 endsnippet
 
@@ -219,6 +222,7 @@ snippet compute_servergroup_v2
 resource "openstack_compute_servergroup_v2" "${1:name}" {
     name     = "$1"
     policies = ""
+    affinity = ""
 }
 endsnippet
 
@@ -248,6 +252,7 @@ resource "openstack_compute_instance_v2" "${1:name}" {
     source_type = ""
     file        = ""
     contents    = ""
+    volume_size = ""
 }
 endsnippet
 
@@ -301,6 +306,7 @@ endsnippet
 snippet networking_router_interface_v2
 resource "openstack_networking_router_interface_v2" "${1:name}" {
     router_id = ""
+    subnet_id = ""
 }
 endsnippet
 
