@@ -1,4 +1,4 @@
-snippet images_image_v2
+snippet data_images_image_v2
 data "openstack_images_image_v2" "${1:name}" {
     name = "$1"
 }
@@ -48,7 +48,7 @@ resource "openstack_networking_secgroup_rule_v2" "${1:name}" {
 }
 endsnippet
 
-snippet networking_secgroup_v2
+snippet data_networking_secgroup_v2
 data "openstack_networking_secgroup_v2" "${1:name}" {
     name = "$1"
 }
@@ -188,7 +188,7 @@ resource "openstack_lb_loadbalancer_v2" "${1:name}" {
 }
 endsnippet
 
-snippet networking_network_v2
+snippet data_networking_network_v2
 data "openstack_networking_network_v2" "${1:name}" {
     name = "$1"
 }
