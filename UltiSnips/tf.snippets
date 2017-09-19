@@ -1,6 +1,8 @@
-snippet data_images_image_v2
-data "openstack_images_image_v2" "${1:name}" {
-    name = "$1"
+snippet images_image_v2
+resource "openstack_images_image_v2" "${1:name}" {
+    container_format = ""
+    disk_format      = ""
+    name             = "$1"
 }
 endsnippet
 
@@ -48,8 +50,8 @@ resource "openstack_networking_secgroup_rule_v2" "${1:name}" {
 }
 endsnippet
 
-snippet data_networking_secgroup_v2
-data "openstack_networking_secgroup_v2" "${1:name}" {
+snippet networking_secgroup_v2
+resource "openstack_networking_secgroup_v2" "${1:name}" {
     name = "$1"
 }
 endsnippet
@@ -190,9 +192,10 @@ resource "openstack_lb_loadbalancer_v2" "${1:name}" {
 }
 endsnippet
 
-snippet data_networking_network_v2
-data "openstack_networking_network_v2" "${1:name}" {
-    name = "$1"
+snippet networking_network_v2
+resource "openstack_networking_network_v2" "${1:name}" {
+    name           = "$1"
+    admin_state_up = ""
 }
 endsnippet
 
@@ -307,6 +310,24 @@ snippet networking_router_interface_v2
 resource "openstack_networking_router_interface_v2" "${1:name}" {
     router_id = ""
     subnet_id = ""
+}
+endsnippet
+
+snippet data_images_image_v2
+data "openstack_images_image_v2" "${1:name}" {
+    name = "$1"
+}
+endsnippet
+
+snippet data_networking_secgroup_v2
+data "openstack_networking_secgroup_v2" "${1:name}" {
+    name = "$1"
+}
+endsnippet
+
+snippet data_networking_network_v2
+data "openstack_networking_network_v2" "${1:name}" {
+    name = "$1"
 }
 endsnippet
 
