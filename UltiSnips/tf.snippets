@@ -27,11 +27,11 @@ endsnippet
 
 snippet lb_listener_v2
 resource "openstack_lb_listener_v2" "${1:name}" {
-    protocol        = ""
-    protocol_port   = ""
+    protocol        = "HTTP"
+    protocol_port   = "80"
     loadbalancer_id = ""
     name            = "$1"
-    admin_state_up  = ""
+    admin_state_up  = "true"
 }
 endsnippet
 
@@ -39,6 +39,9 @@ snippet dns_recordset_v2
 resource "openstack_dns_recordset_v2" "${1:name}" {
     zone_id = ""
     name    = "$1"
+    type    = "A"
+    ttl     = 3000
+    records = [""]
 }
 endsnippet
 
@@ -87,7 +90,8 @@ endsnippet
 
 snippet compute_floatingip_v2
 resource "openstack_compute_floatingip_v2" "${1:name}" {
-    pool = ""
+    pool    = ""
+    port_id = ""
 }
 endsnippet
 
@@ -120,7 +124,7 @@ resource "openstack_lb_member_v2" "${1:name}" {
     name           = "$1"
     address        = ""
     protocol_port  = ""
-    admin_state_up = ""
+    admin_state_up = "true"
 }
 endsnippet
 
@@ -128,11 +132,13 @@ snippet lb_monitor_v2
 resource "openstack_lb_monitor_v2" "${1:name}" {
     pool_id        = ""
     name           = "$1"
-    type           = ""
-    delay          = ""
-    timeout        = ""
-    max_retries    = ""
-    admin_state_up = ""
+    type           = "HTTP"
+    url_path       = "/"
+    delay          = "20"
+    timeout        = "10"
+    max_retries    = "5"
+    expected_codes = "200"
+    admin_state_up = "true"
 }
 endsnippet
 
@@ -148,7 +154,6 @@ snippet blockstorage_volume_attach_v2
 resource "openstack_blockstorage_volume_attach_v2" "${1:name}" {
     host_name = ""
     volume_id = ""
-    data      = ""
 }
 endsnippet
 
@@ -181,6 +186,7 @@ endsnippet
 snippet dns_zone_v2
 resource "openstack_dns_zone_v2" "${1:name}" {
     name = "$1"
+    ttl  = 6000
 }
 endsnippet
 
@@ -214,10 +220,19 @@ endsnippet
 snippet lb_pool_v2
 resource "openstack_lb_pool_v2" "${1:name}" {
     name           = "$1"
-    lb_method      = ""
-    admin_state_up = ""
-    type           = ""
-    persistence    = ""
+    lb_method      = "ROUND_ROBIN"
+    admin_state_up = "true"
+    type           = "HTTP"
+}
+endsnippet
+
+snippet provider
+provider "openstack" {
+    user_name   = "${var.username}"
+    password    = "${var.password}"
+    tenant_name = "${var.tenant_name}"
+    domain_name = "${var.domain_name}"
+    auth_url    = "${var.endpoint}"
 }
 endsnippet
 
@@ -251,11 +266,15 @@ endsnippet
 
 snippet compute_instance_v2
 resource "openstack_compute_instance_v2" "${1:name}" {
-    name        = "$1"
-    source_type = ""
-    file        = ""
-    contents    = ""
-    volume_size = ""
+    name            = "$1"
+    image_name      = ""
+    flavor_name     = ""
+    key_pair        = ""
+    user_data       = ""
+    security_groups = [""]
+    network {
+        uuid = ""
+    }
 }
 endsnippet
 
@@ -269,19 +288,25 @@ snippet compute_secgroup_v2
 resource "openstack_compute_secgroup_v2" "${1:name}" {
     name        = "$1"
     description = ""
-    from_port   = ""
-    to_port     = ""
-    ip_protocol = ""
+
+    rule {
+        from_port   = ""
+        to_port     = ""
+        ip_protocol = ""
+        cidr        = ""
+    }
 }
 endsnippet
 
 snippet networking_port_v2
 resource "openstack_networking_port_v2" "${1:name}" {
-    name           = "$1"
-    network_id     = ""
-    admin_state_up = ""
-    subnet_id      = ""
-    ip_address     = ""
+    name               = "$1"
+    network_id         = ""
+    admin_state_up     = "true"
+    security_group_ids = [""]
+    fixed_ip = {
+        subnet_id      = ""
+    }
 }
 endsnippet
 
@@ -299,10 +324,6 @@ resource "openstack_networking_subnet_v2" "${1:name}" {
     network_id       = ""
     cidr             = ""
     name             = "$1"
-    start            = ""
-    end              = ""
-    destination_cidr = ""
-    next_hop         = ""
 }
 endsnippet
 
