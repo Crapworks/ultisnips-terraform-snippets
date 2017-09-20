@@ -101,7 +101,6 @@ endsnippet
 snippet compute_floatingip_v2
 resource "openstack_compute_floatingip_v2" "${1:name}" {
     pool    = ""
-    port_id = ""
 }
 endsnippet
 
@@ -189,7 +188,7 @@ endsnippet
 snippet networking_floatingip_v2
 resource "openstack_networking_floatingip_v2" "${1:name}" {
     pool     = ""
-    fixed_ip = ""
+    port_id  = ""
 }
 endsnippet
 
