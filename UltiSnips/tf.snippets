@@ -276,6 +276,7 @@ resource "openstack_networking_router_v2" "${1:name}" {
     name             = "$1"
     admin_state_up   = ""
     external_gateway = ""
+    enable_snat      = "true"
 }
 endsnippet
 
